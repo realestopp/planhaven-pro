@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as BudgetRouteImport } from './routes/budget'
+import { Route as GuestsRouteImport } from './routes/guests'
 import { Route as TasksRouteImport } from './routes/tasks'
 import { Route as VendorsRouteImport } from './routes/vendors'
 
@@ -22,6 +23,11 @@ const IndexRoute = IndexRouteImport.update({
 const BudgetRoute = BudgetRouteImport.update({
   id: '/budget',
   path: '/budget',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GuestsRoute = GuestsRouteImport.update({
+  id: '/guests',
+  path: '/guests',
   getParentRoute: () => rootRouteImport,
 } as any)
 const TasksRoute = TasksRouteImport.update({
@@ -38,12 +44,14 @@ const VendorsRoute = VendorsRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/budget': typeof BudgetRoute
+  '/guests': typeof GuestsRoute
   '/tasks': typeof TasksRoute
   '/vendors': typeof VendorsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/budget': typeof BudgetRoute
+  '/guests': typeof GuestsRoute
   '/tasks': typeof TasksRoute
   '/vendors': typeof VendorsRoute
 }
@@ -51,20 +59,22 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/budget': typeof BudgetRoute
+  '/guests': typeof GuestsRoute
   '/tasks': typeof TasksRoute
   '/vendors': typeof VendorsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/budget' | '/tasks' | '/vendors'
+  fullPaths: '/' | '/budget' | '/guests' | '/tasks' | '/vendors'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/budget' | '/tasks' | '/vendors'
-  id: '__root__' | '/' | '/budget' | '/tasks' | '/vendors'
+  to: '/' | '/budget' | '/guests' | '/tasks' | '/vendors'
+  id: '__root__' | '/' | '/budget' | '/guests' | '/tasks' | '/vendors'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   BudgetRoute: typeof BudgetRoute
+  GuestsRoute: typeof GuestsRoute
   TasksRoute: typeof TasksRoute
   VendorsRoute: typeof VendorsRoute
 }
@@ -83,6 +93,13 @@ declare module '@tanstack/react-router' {
       path: '/budget'
       fullPath: '/budget'
       preLoaderRoute: typeof BudgetRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/guests': {
+      id: '/guests'
+      path: '/guests'
+      fullPath: '/guests'
+      preLoaderRoute: typeof GuestsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/tasks': {
@@ -105,6 +122,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   BudgetRoute: BudgetRoute,
+  GuestsRoute: GuestsRoute,
   TasksRoute: TasksRoute,
   VendorsRoute: VendorsRoute,
 }
