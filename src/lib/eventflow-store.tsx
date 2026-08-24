@@ -139,8 +139,8 @@ const GUESTS: Guest[] = [
     id: uid(),
     eventId: "emma-alex",
     name,
-    rsvp: (["Attending", "Attending", "Pending", "Declined"] as Rsvp[])[i % 4],
-    meal: (["Beef", "Fish", "Vegan", "Kids"] as const)[i % 4],
+    rsvp: (["Attending", "Attending", "Pending", "Declined"] as Rsvp[])[i % 4]!,
+    meal: (["Beef", "Fish", "Vegan", "Kids"] as const)[i % 4]!,
     table: `T${(i % 6) + 1}`,
     plusOnes: i % 3 === 0 ? 1 : 0,
   })),
@@ -148,8 +148,8 @@ const GUESTS: Guest[] = [
     id: uid(),
     eventId: "techcorp",
     name,
-    rsvp: (["Attending", "Pending", "Attending", "Declined"] as Rsvp[])[i % 4],
-    meal: (["Fish", "Vegan", "Beef", "Vegan"] as const)[i % 4],
+    rsvp: (["Attending", "Pending", "Attending", "Declined"] as Rsvp[])[i % 4]!,
+    meal: (["Fish", "Vegan", "Beef", "Vegan"] as const)[i % 4]!,
     table: `B${(i % 5) + 1}`,
     plusOnes: i % 4 === 0 ? 1 : 0,
   })),
@@ -186,7 +186,7 @@ type Ctx = {
 const StoreContext = createContext<Ctx | null>(null);
 
 export function EventFlowProvider({ children }: { children: ReactNode }) {
-  const [activeEventId, setActiveEventId] = useState(EVENTS[0].id);
+  const [activeEventId, setActiveEventId] = useState(EVENTS[0]!.id);
   const [tasks, setTasks] = useState(TASKS);
   const [budget, setBudget] = useState(BUDGET);
   const [vendors, setVendors] = useState(VENDORS);
@@ -199,7 +199,7 @@ export function EventFlowProvider({ children }: { children: ReactNode }) {
 
     return {
       events: EVENTS,
-      activeEvent: EVENTS.find((e) => e.id === activeEventId) ?? EVENTS[0],
+      activeEvent: EVENTS.find((e) => e.id === activeEventId) ?? EVENTS[0]!,
       setActiveEventId,
       tasks: inEvent(tasks),
       budget: inEvent(budget),

@@ -188,9 +188,9 @@ function BudgetPage() {
         <div className="space-y-4 p-4">
           {Object.entries(
             budget.reduce<Record<string, { e: number; a: number }>>((acc, b) => {
-              acc[b.category] ??= { e: 0, a: 0 };
-              acc[b.category].e += b.estimated;
-              acc[b.category].a += b.actual;
+              const row = (acc[b.category] ??= { e: 0, a: 0 });
+              row.e += b.estimated;
+              row.a += b.actual;
               return acc;
             }, {}),
           ).map(([cat, v]) => (
